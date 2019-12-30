@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_study/pages/DiscoveryPage.dart';
 import 'package:flutter_study/pages/MyInfoPage.dart';
+import 'package:flutter_study/pages/MyNewsListPager.dart';
 import 'package:flutter_study/pages/NewsListPage.dart';
 import 'package:flutter_study/pages/SystemPage.dart';
 import 'package:flutter_study/utils/net/ParamsUtils.dart';
@@ -73,7 +74,8 @@ class MyMainState extends State<MyApp> {
     }
     _body = new IndexedStack(
       children: <Widget>[
-        new NewsListPage(),
+        new MyNewsListPager(),
+//        new NewsListPage(),
         new SystemPage(),
         new DiscoveryPage(),
         new MyInfoPage()

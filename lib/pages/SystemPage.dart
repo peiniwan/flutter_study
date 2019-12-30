@@ -25,12 +25,17 @@ class _SystemPageState extends State<SystemPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new SafeArea(
-        //TODO 改成list
-        child: new CustomScrollView(
+    return SafeArea(
+      child: getBody(),
+//      child: buildCustomScrollView()
+    );
+  }
+
+  CustomScrollView buildCustomScrollView() {
+    return CustomScrollView(
       shrinkWrap: true,
       slivers: <Widget>[
-        new SliverAppBar(
+        SliverAppBar(
             pinned: false,
             expandedHeight: 180.0,
             iconTheme: new IconThemeData(color: Colors.transparent),
@@ -38,56 +43,15 @@ class _SystemPageState extends State<SystemPage> {
               './images/ic_xiaoxin.jpg',
               fit: BoxFit.fill,
             )),
-        new SliverList(
-            delegate: new SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
+        SliverList(
+            delegate:
+                SliverChildBuilderDelegate((BuildContext context, int index) {
           var _tempItems = _treeList[index];
-          return new Container(
-              alignment: Alignment.centerLeft,
-              child: new InkWell(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(new MaterialPageRoute(builder: (context) {
-                    return _initClassData(_tempItems);
-                  }));
-                },
-                child: new Column(
-                  children: <Widget>[
-                    new Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
-                        child: new Column(
-                          children: <Widget>[
-                            new Container(
-                              child: new Text(
-                                _tempItems['name'],
-                                style: _titleStyle,
-                              ),
-                              alignment: Alignment.centerLeft,
-                              margin:
-                                  new EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
-                            ),
-                            new Container(
-                              margin:
-                                  new EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                              child: new Text(
-                                _childStr(_tempItems),
-                                style: _childStyle,
-                                textAlign: TextAlign.start,
-                              ),
-                              alignment: Alignment.topLeft,
-                            )
-                          ],
-                        )),
-                    new Divider(
-                      height: 1.0,
-                    )
-                  ],
-                ),
-              ));
+          return Container(
+              alignment: Alignment.centerLeft, child: normalItem(_tempItems));
         }, childCount: _treeList.length))
       ],
-    ));
+    );
   }
 
   String _childStr(var _tempItems) {
@@ -113,30 +77,6 @@ class _SystemPageState extends State<SystemPage> {
     });
   }
 
-  initItem(int i) {
-    var _tempItems = _treeList[i];
-    return new Container(
-        alignment: Alignment.centerLeft,
-        child: new InkWell(
-          onTap: () {},
-          child: new Column(
-            children: <Widget>[
-              new Padding(
-                  padding: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
-                  child: new Column(
-                    children: <Widget>[
-                      new Text(_tempItems['name']),
-                      new Text(_childStr(_tempItems)),
-                    ],
-                  )),
-              new Divider(
-                height: 1.0,
-              )
-            ],
-          ),
-        ));
-  }
-
   Widget _initClassData(var tempData) {
     var childList = tempData['children'] as List;
     List<SystemClassBean> systemCBean = [];
@@ -144,5 +84,78 @@ class _SystemPageState extends State<SystemPage> {
       systemCBean.add(new SystemClassBean(tempItem['id'], tempItem['name']));
     }
     return new SystemListPage(systemCBean, tempData['name']);
+  }
+
+  getBody() {
+    if (showLoadingDialog()) {
+      return getProgressDialog();
+    } else {
+      return getListView();
+    }
+  }
+
+  bool showLoadingDialog() {
+    if (_treeList.length == 0) {
+      return true;
+    }
+    return false;
+  }
+
+  getProgressDialog() {
+    new Center(child: new CircularProgressIndicator());
+  }
+
+  ListView getListView() => ListView.builder(
+      itemCount: _treeList.length,
+      itemBuilder: (BuildContext context, int position) {
+        return getRow(position);
+      });
+
+  getRow(int position) {
+    if (position == 0) {
+      return Image.asset('./images/ic_xiaoxin.jpg', fit: BoxFit.fill);
+    } else {
+      var _tempItems = _treeList[position];
+      return normalItem(_tempItems);
+    }
+  }
+
+  InkWell normalItem(_tempItems) {
+    return InkWell(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return _initClassData(_tempItems);
+          }));
+        },
+        child: Column(
+          children: <Widget>[
+            Padding(
+                padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        _tempItems['name'],
+                        style: _titleStyle,
+                      ),
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                      child: new Text(
+                        _childStr(_tempItems),
+                        style: _childStyle,
+                        textAlign: TextAlign.start,
+                      ),
+                      alignment: Alignment.topLeft,
+                    )
+                  ],
+                )),
+            Divider(
+              height: 1.0,
+            )
+          ],
+        ));
   }
 }

@@ -33,7 +33,7 @@ class DiscoveryPage extends StatelessWidget {
     var fragment = new DiscoveryBean(
         'images/ic_discover_gist.png', '代码片段', false, true,
         isLinkWebPage: true,
-        linkUrl: 'https://github.com/LinHuanTanLy/FlutterOsChina');
+        linkUrl: 'https://github.com/peiniwan/flutter_study');
     var qr =
         new DiscoveryBean('images/ic_discover_scan.png', '扫一扫', true, false);
     var wave =

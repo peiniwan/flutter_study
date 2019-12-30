@@ -85,6 +85,7 @@ class NewsListPageState extends State<NewsListPage> {
         getNewsList(_mCurPage);
       });
     });
+
   }
 
   Future<Null> onHeaderRefresh() {
