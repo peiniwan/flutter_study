@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study/pages/NewsDetailPage.dart';
 
 class WidgetsUtils {
   // 屏幕宽度
@@ -96,7 +97,7 @@ class WidgetsUtils {
             // 详情跳转
             Navigator.of(context)
                 .push(new MaterialPageRoute(builder: (context) {
-//              return new NewsDetailPage(detailUrl, title);
+              return new NewsDetailPage(detailUrl, title);
             }));
           },
           child: new Stack(

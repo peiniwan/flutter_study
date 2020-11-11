@@ -30,7 +30,7 @@ class MyNewsListPagerState extends State<MyNewsListPager> {
   WidgetsUtils mWidgetsUtils;
 
   @override
-  void initState() {
+  void initState() {//只执行一次
     super.initState();
     getBannerList();
     getNewsList(_mCurPage);

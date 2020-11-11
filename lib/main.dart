@@ -74,8 +74,8 @@ class MyMainState extends State<MyApp> {
     }
     _body = new IndexedStack(
       children: <Widget>[
-        new MyNewsListPager(),
-//        new NewsListPage(),
+        // new MyNewsListPager(),
+       new NewsListPage(),
         new SystemPage(),
         new DiscoveryPage(),
         new MyInfoPage()
@@ -132,8 +132,8 @@ class MyMainState extends State<MyApp> {
             iconTheme: new IconThemeData(color: Colors.white),
           ),
           body: _body,
-          bottomNavigationBar: new CupertinoTabBar(
-            items: getBottomNavigationBarItem(),
+          bottomNavigationBar: new CupertinoTabBar(//iOS样式的底部导航选项卡栏
+          items: getBottomNavigationBarItem(),
             currentIndex: _tabIndex,
             onTap: (index) {
               setState(() {

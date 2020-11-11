@@ -66,13 +66,12 @@ class NewsListPageState extends State<NewsListPage> {
         onHeaderRefresh: onHeaderRefresh,
         childBuilder: (BuildContext context,
             {ScrollController controller, ScrollPhysics physics}) {
-          return new Container(
-              child: new ListView.builder(
-                  // 这里itemCount是将轮播图组件、分割线和列表items都作为ListView的item算了
-                  itemCount: listData.length * 2 + 1,
-                  controller: controller,
-                  physics: physics,
-                  itemBuilder: (context, i) => renderRow(i)));
+          return new ListView.builder(
+              // 这里itemCount是将轮播图组件、分割线和列表items都作为ListView的item算了
+              itemCount: listData.length * 2 + 1,
+              controller: controller,
+              physics: physics,
+              itemBuilder: (context, i) => renderRow(i));
         },
       );
     }
@@ -85,7 +84,6 @@ class NewsListPageState extends State<NewsListPage> {
         getNewsList(_mCurPage);
       });
     });
-
   }
 
   Future<Null> onHeaderRefresh() {
@@ -279,7 +277,7 @@ class NewsListPageState extends State<NewsListPage> {
       child: row,
       onTap: () {
         Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-          return new NewsDetailPage(itemData['link'],itemData['title']);
+          return new NewsDetailPage(itemData['link'], itemData['title']);
         }));
       },
     );

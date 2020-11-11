@@ -49,7 +49,7 @@ class _MyFadeTest extends State<MyFadeTest> with TickerProviderStateMixin {
   @override
   void initState() {
     controller = new AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this);
+        duration: const Duration(milliseconds: 2000));
     curve = new CurvedAnimation(parent: controller, curve: Curves.easeIn);
   }
 
